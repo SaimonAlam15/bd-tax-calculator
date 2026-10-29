@@ -13,6 +13,8 @@ import { FileOnlineLink, Headline, ResultsPanel } from './components/Results'
 import { calculate, currentRules as rules } from './engine'
 import { formatDate, t } from './i18n'
 import { useDisplaySettings } from './i18n/settings'
+import { track } from './lib/analytics'
+import { CACHE_HOURS } from './state/storage'
 import { useTaxInputs } from './state/useTaxInputs'
 
 export function App() {
@@ -21,6 +23,11 @@ export function App() {
   const { inputs, update, reset } = useTaxInputs()
   const result = useMemo(() => calculate(inputs, rules), [inputs])
   const [sheetOpen, setSheetOpen] = useState(false)
+
+  // Counts that someone saw a calculation, once per visit. Only the event name is sent.
+  useEffect(() => {
+    if (result.income.total > 0) track('calculate-viewed')
+  }, [result.income.total])
 
   // Lock page scroll behind the mobile results sheet.
   useEffect(() => {
@@ -52,7 +59,7 @@ export function App() {
 
       <main className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-3">
-          <p className="text-sm text-stone-600 dark:text-stone-400">{t('app.privacy')}</p>
+          <p className="text-sm text-stone-600 dark:text-stone-400">{t('app.privacy', { hours: CACHE_HOURS })}</p>
           <ProfileSection {...sectionProps} />
           <SalarySection {...sectionProps} />
           <RentSection {...sectionProps} />

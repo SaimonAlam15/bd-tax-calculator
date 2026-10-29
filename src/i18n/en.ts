@@ -3,9 +3,9 @@ export const en = {
   'app.title': 'Bangladesh Income Tax Calculator',
   'app.yearLabel': 'Income earned {start} – {end} · Assessment year {ay}',
   'app.fileOnline': 'File online',
-  'app.privacy': 'Everything you enter stays in this browser. Nothing is sent to a server.',
-  'app.reset': 'Clear all',
-  'app.resetConfirm': 'Clear everything you have entered?',
+  'app.privacy': 'Everything you enter stays in this browser and is deleted {hours} hours after your last change. Nothing is sent to a server.',
+  'app.reset': 'Clear my data',
+  'app.resetConfirm': 'Clear everything you have entered? It will also be deleted from this browser.',
 
   'common.remove': 'Remove',
   'common.optional': 'optional',

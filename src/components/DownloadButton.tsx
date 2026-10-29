@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { currentRules as rules, type TaxInputs, type TaxResult } from '../engine'
 import { t } from '../i18n'
+import { track } from '../lib/analytics'
 
 export function DownloadButton(props: { inputs: TaxInputs; result: TaxResult }) {
   const [state, setState] = useState<'idle' | 'busy' | 'failed'>('idle')
@@ -11,6 +12,7 @@ export function DownloadButton(props: { inputs: TaxInputs; result: TaxResult }) 
       // Loaded on demand: ExcelJS is several times the size of the rest of the app.
       const { downloadXlsx } = await import('../export/xlsx')
       await downloadXlsx(props.inputs, props.result, rules)
+      track('xlsx-downloaded')
       setState('idle')
     } catch (error) {
       console.error(error)
