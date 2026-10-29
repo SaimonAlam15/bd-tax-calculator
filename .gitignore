@@ -2,3 +2,11 @@ node_modules
 dist
 *.local
 tsconfig.tsbuildinfo
+
+# Editor and tool settings that only apply to one machine
+.claude/
+.DS_Store
+
+# Test coverage reports and local secrets
+coverage
+.env*
