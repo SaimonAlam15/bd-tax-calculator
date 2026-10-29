@@ -1,0 +1,71 @@
+{
+  "id": "2025-26",
+  "version": "2025-26.1",
+  "incomeYear": { "label": "2025-26", "start": "2025-07-01", "end": "2026-06-30" },
+  "assessmentYear": "2026-27",
+  "returnDeadline": "2026-11-30",
+  "lastChecked": "2026-10-29",
+  "sources": [
+    {
+      "title": "NBR Income Tax Paripatra 2026-2027 (2 Sep 2026)",
+      "url": "https://nbr.gov.bd/uploads/paripatra/Aykor_Poripothro_2026-2027_BG_Press_Modify_Copy.pdf"
+    }
+  ],
+
+  "thresholds": {
+    "general": 400000,
+    "femaleOrSenior": 450000,
+    "disability": 525000,
+    "thirdGender": 525000,
+    "warWoundedFighter": 550000,
+    "perDisabledChild": 50000
+  },
+  "seniorAge": 65,
+
+  "slabs": [
+    { "width": 300000, "rate": 0.1 },
+    { "width": 400000, "rate": 0.15 },
+    { "width": 500000, "rate": 0.2 },
+    { "width": 2000000, "rate": 0.25 },
+    { "width": null, "rate": 0.3 }
+  ],
+
+  "minimumTax": { "standard": 5000, "newTaxpayer": 1000 },
+
+  "salaryExemption": { "fraction": 0.3333333333333333, "cap": 500000 },
+
+  "rent": {
+    "_note": "UNVERIFIED: s.38 repairs allowance rates are carried over from earlier law; confirm before launch (SPEC §4.8).",
+    "repairsAllowanceRate": { "residential": 0.25, "commercial": 0.3 },
+    "securityDepositSpecialRentRate": 0.1
+  },
+
+  "rebate": { "incomeRate": 0.03, "investmentRate": 0.1, "cap": 750000 },
+
+  "investmentCaps": {
+    "_note": "UNVERIFIED per-item limits from Sixth Schedule Part 3; confirm before launch (SPEC §4.8).",
+    "dps": 120000,
+    "lifeInsurancePremiumOfSumAssured": 0.1
+  },
+
+  "defaultTdsRates": { "sanchaypatra": 0.1, "bankInterest": 0.1, "dividend": 0.1 },
+
+  "wealthSurcharge": {
+    "_note": "Rate applies to income tax payable. Paripatra 2026-27 §1.6.",
+    "bands": [
+      { "upTo": 40000000, "rate": 0 },
+      { "upTo": 100000000, "rate": 0.1 },
+      { "upTo": 200000000, "rate": 0.2 },
+      { "upTo": 500000000, "rate": 0.3 },
+      { "upTo": null, "rate": 0.35 }
+    ],
+    "tenPercentIf": { "carsMoreThan": 1, "housePropertySqftMoreThan": 8000 }
+  },
+
+  "filingWindows": [
+    { "from": "2026-07-01", "to": "2026-09-30", "kind": "rebate", "rate": 0.05, "max": 25000 },
+    { "from": "2026-10-01", "to": "2026-12-31", "kind": "none" },
+    { "from": "2027-01-01", "to": "2027-03-31", "kind": "extra", "rate": 0.02, "min": 3000 },
+    { "from": "2027-04-01", "to": "2027-06-30", "kind": "extra", "rate": 0.05, "min": 5000 }
+  ]
+}
