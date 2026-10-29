@@ -6,6 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   base: process.env.BASE_PATH ?? '/',
   plugins: [react(), tailwindcss()],
+  // ExcelJS (~930 kB) is its own chunk, loaded only when someone downloads.
+  build: { chunkSizeWarningLimit: 1000 },
   test: {
     globals: true,
   },

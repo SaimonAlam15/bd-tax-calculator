@@ -76,7 +76,7 @@ export function App() {
         <aside className="hidden lg:block">
           <div className="sticky top-6 rounded-xl border border-stone-200 bg-white p-5 shadow-sm dark:border-stone-800 dark:bg-stone-900">
             <h2 className="sr-only">{t('results.title')}</h2>
-            <ResultsPanel result={result} />
+            <ResultsPanel inputs={inputs} result={result} />
           </div>
         </aside>
       </main>
@@ -121,7 +121,7 @@ export function App() {
             </button>
           </div>
           <div className="px-4 py-5">
-            <ResultsPanel result={result} />
+            <ResultsPanel inputs={inputs} result={result} />
           </div>
         </div>
       )}

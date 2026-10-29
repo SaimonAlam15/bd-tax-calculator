@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
-import { currentRules as rules, type TaxResult } from '../engine'
+import { currentRules as rules, type TaxInputs, type TaxResult } from '../engine'
 import { t } from '../i18n'
 import { formatPercent, formatTaka } from '../lib/format'
+import { DownloadButton } from './DownloadButton'
 
 export const E_RETURN_URL = 'https://etaxnbr.gov.bd'
 
@@ -180,13 +181,14 @@ export function FileOnlineLink({ className = '' }: { className?: string }) {
 }
 
 /** Full results card used in the desktop sidebar and the mobile sheet. */
-export function ResultsPanel({ result }: { result: TaxResult }) {
+export function ResultsPanel({ inputs, result }: { inputs: TaxInputs; result: TaxResult }) {
   return (
     <div className="space-y-6">
       <Headline result={result} />
       <Breakdown result={result} />
       <div className="space-y-3 border-t border-stone-100 pt-4 dark:border-stone-800">
         <p className="text-xs text-stone-500 dark:text-stone-400">{t('results.disclaimer')}</p>
+        <DownloadButton inputs={inputs} result={result} />
         <FileOnlineLink className="w-full" />
       </div>
     </div>
