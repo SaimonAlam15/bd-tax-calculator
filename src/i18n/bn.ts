@@ -4,6 +4,7 @@ import type { MessageKey } from './en'
 // to Bangla numerals when that setting is on. Terms follow the NBR Paripatra where it has one.
 export const bn: Record<MessageKey, string> = {
   'app.title': 'বাংলাদেশ আয়কর ক্যালকুলেটর',
+  'app.pageTitle': 'আয়কর ক্যালকুলেটর {ay} | Bangladesh Income Tax Calculator',
   'app.yearLabel': 'আয়ের সময়কাল {start} – {end} · করবর্ষ {ay}',
   'app.fileOnline': 'অনলাইনে রিটার্ন দিন',
   'app.privacy': 'আপনার দেওয়া সব তথ্য এই ব্রাউজারেই থাকে এবং শেষ পরিবর্তনের {hours} ঘণ্টা পরে মুছে যায়। কোনো সার্ভারে পাঠানো হয় না।',
@@ -165,6 +166,7 @@ export const bn: Record<MessageKey, string> = {
   'results.seeBreakdown': 'বিস্তারিত দেখুন',
   'results.close': 'বন্ধ করুন',
 
+  'footer.about': 'বাংলাদেশের স্বাভাবিক ব্যক্তি করদাতাদের জন্য একটি বিনামূল্যের ক্যালকুলেটর, করবর্ষ {ay} ({start} – {end} সময়ের আয়)। এতে বেতন, বাড়িভাড়া, ব্যবসার আয়, ব্যাংক সুদ, লভ্যাংশ ও সঞ্চয়পত্র, বিদেশ থেকে পাঠানো অর্থ, বিনিয়োগজনিত কর রেয়াত, ন্যূনতম কর, সারচার্জ এবং আগে বা দেরিতে রিটার্ন দাখিলের সমন্বয় হিসাব করা হয়।',
   'footer.rules': 'কর বিধির সংস্করণ {version}, সর্বশেষ যাচাই {date}।',
   'footer.source': 'উৎস',
 

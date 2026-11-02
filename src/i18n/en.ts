@@ -1,6 +1,7 @@
 // English UI text. bn.ts must have the same keys.
 export const en = {
   'app.title': 'Bangladesh Income Tax Calculator',
+  'app.pageTitle': 'Bangladesh Income Tax Calculator {ay} | আয়কর ক্যালকুলেটর',
   'app.yearLabel': 'Income earned {start} – {end} · Assessment year {ay}',
   'app.fileOnline': 'File online',
   'app.privacy': 'Everything you enter stays in this browser and is deleted {hours} hours after your last change. Nothing is sent to a server.',
@@ -162,6 +163,7 @@ export const en = {
   'results.seeBreakdown': 'See breakdown',
   'results.close': 'Close',
 
+  'footer.about': 'A free calculator for individual taxpayers in Bangladesh, for assessment year {ay} (income earned {start} – {end}). It covers salary, house rent, business income, bank interest, dividends and Sanchaypatra, money sent home from abroad, the investment tax rebate, minimum tax, wealth surcharge and the early or late filing adjustment.',
   'footer.rules': 'Tax rules version {version}, last checked {date}.',
   'footer.source': 'Source',
 

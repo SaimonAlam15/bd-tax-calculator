@@ -1,6 +1,7 @@
 # Builds the site and publishes it to GitHub Pages on every push to main.
 # One-time setup: Settings → Pages → Source: "GitHub Actions".
-# Optional: Settings → Secrets and variables → Actions → Variables → GOATCOUNTER_CODE.
+# Optional: Settings → Secrets and variables → Actions → Variables → GOATCOUNTER_CODE and
+# GOOGLE_SITE_VERIFICATION (the content value of Search Console's HTML meta tag).
 name: Deploy to GitHub Pages
 
 on:
@@ -27,13 +28,18 @@ jobs:
         with:
           node-version-file: .nvmrc
           cache: npm
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm test
       - run: npm run build
         env:
           # Pages serves the site from /<repo-name>/.
           BASE_PATH: /${{ github.event.repository.name }}/
+          # Full public URL (follows a custom domain if one is set up).
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
           VITE_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
