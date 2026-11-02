@@ -1,6 +1,7 @@
 import {
   calculate,
   currentRules as rules,
+  eligibleInvestments,
   emptyInputs,
   employmentIncome,
   investmentRebate,
@@ -199,6 +200,35 @@ describe('investment caps', () => {
     expect(r.rebate.eligibleInvestment).toBe(170000) // 1,20,000 + 50,000
     expect(r.rebate.amount).toBe(17000)
   })
+
+  it('caps government securities and mutual funds at ৳5 lakh a year each', () => {
+    const r = calculate(
+      inputs((i) => {
+        i.business.netProfit = 3000000
+        i.investments = [
+          { kind: 'sanchaypatra', amount: 1000000 },
+          { kind: 'mutualFund', amount: 700000 },
+          { kind: 'listedShares', amount: 300000 },
+        ]
+      }),
+      rules,
+    )
+    expect(r.rebate.eligibleInvestment).toBe(1300000) // 5,00,000 + 5,00,000 + 3,00,000
+  })
+
+  it('applies a yearly cap across several items of the same kind', () => {
+    expect(
+      eligibleInvestments(
+        [
+          { kind: 'sanchaypatra', amount: 300000 },
+          { kind: 'dps', amount: 100000 },
+          { kind: 'sanchaypatra', amount: 300000 },
+          { kind: 'dps', amount: 100000 },
+        ],
+        rules,
+      ),
+    ).toEqual([300000, 100000, 200000, 20000])
+  })
 })
 
 describe('wealth surcharge', () => {
@@ -235,5 +265,20 @@ describe('filing windows', () => {
   it('caps the early-filing rebate at ৳25,000', () => {
     const r = calculate(inputs((i) => (i.business.netProfit = 5000000), '2026-09-01'), rules)
     expect(r.filingAdjustment.amount).toBe(-25000)
+  })
+
+  it('charges the late-filing minimum even when TDS covers all the tax', () => {
+    const covered = (i: TaxInputs) => {
+      i.business.netProfit = 600000
+      i.business.tds = 20000
+    }
+    expect(calculate(inputs(covered, '2027-01-15'), rules).filingAdjustment).toEqual({ kind: 'extra', amount: 3000 })
+    expect(calculate(inputs(covered, '2027-04-15'), rules).filingAdjustment).toEqual({ kind: 'extra', amount: 5000 })
+    expect(calculate(inputs(covered, '2026-08-15'), rules).filingAdjustment).toEqual({ kind: 'rebate', amount: 0 })
+  })
+
+  it('makes no adjustment on an empty form', () => {
+    const r = calculate(inputs(() => {}, '2027-01-15'), rules)
+    expect(r.filingAdjustment.amount).toBe(0)
   })
 })

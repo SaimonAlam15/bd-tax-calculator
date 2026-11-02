@@ -22,7 +22,7 @@ Year labels: people say "fiscal year 2025–26" for the income year, while NBR l
   - **Business / profession**: one net-profit figure.
   - **Interest / savings income**: FDR, bank savings, savings certificates (Sanchaypatra), each with the tax deducted at source (TDS).
   - **Dividends**, with TDS.
-  - **Income from abroad / remittances**: captured as its own section. Amounts brought in through legal banking channels are treated as exempt (if verification confirms this); they appear in the inputs and the export but are excluded from taxable income, with an explanatory note.
+  - **Income from abroad / remittances**: captured as its own section. Amounts brought in through legal banking channels are exempt (§4.8); they appear in the inputs and the export but are excluded from taxable income, with an explanatory note. Income kept abroad is not covered.
 - **Investment tax rebate**: itemised eligible investments (DPS, Sanchaypatra purchases, life insurance premium, PF contributions, listed shares, approved donations, etc.) with per-item caps, then the overall rebate formula.
 - **Tax already paid**: TDS by source, advance tax paid, giving a final **payable / refundable** figure.
 - **Minimum tax** rule.
@@ -52,6 +52,7 @@ The site never submits returns or asks for e-return credentials (NBR has no publ
    - bank or FDR interest → TDS certificate from each bank
    - Sanchaypatra → profit and TDS certificate
    - DPS, life insurance, shares, PF → investment proofs
+   - remittances from abroad → encashment certificate or bank statement showing the inward remittance (proof for the Sixth Schedule Part 1 para 17 exemption)
    - always: e-TIN certificate and NID
    
    The checklist can be ticked off. Ticks are kept in the same 3-hour cache.
@@ -109,15 +110,16 @@ Applies from tax year 2026–27, based on the tax payable with the return (s.173
 
 Profile asks for the planned filing date (default: today). Filing in Oct–Dec 2026 means no adjustment.
 
-### 4.8 Still to verify before launch
-1. Exemption rules for income from abroad / remittances.
+### 4.8 Rule decisions (checked 1 Nov 2026)
+No professional has signed off. Each rule was checked against the Authentic English Text of the Income Tax Act 2023 (SRO 404-Law/2025, which predates the Finance Act 2026) and Paripatra 2026–27. Where the text is unclear, the owner made the call below; revisit if better information turns up.
+1. **Income from abroad.** Remittances brought in through legal channels are exempt with no ceiling (Sixth Schedule Part 1 para 17; Bangladeshi citizens). Income kept abroad is left out of the calculation entirely (owner's decision); the form only asks for remittances.
 2. ~~Wealth surcharge slabs.~~ Resolved from Paripatra 2026–27 §1.6. The rate applies to tax payable: nil up to ৳4 crore (but 10% for more than one car or house property over 8,000 sq ft), 10% for ৳4–10 crore, 20% for ৳10–20 crore, 30% for ৳20–50 crore, 35% above ৳50 crore. No minimum surcharge is stated.
-3. Whether the filing-time extra tax applies when payable tax is zero (the engine currently applies none).
-4. Rent repairs allowance under s.38 (config uses 25% residential and 30% commercial, carried over from earlier law). The s.37 gross rental value formula and the 10% special rent on deposits are from Paripatra 2026–27 §14–15.
-5. Per-item investment limits for the rebate (config: DPS ৳1,20,000; life insurance premium up to 10% of sum assured; other items uncapped).
-6. Any dividend exemption for individuals (config: none).
+3. **Late-filing extra tax with nothing left to pay.** Paripatra §67.1 says "2% (or 5%) of the s.173 amount, or ৳3,000 (or ৳5,000), whichever is higher". Read literally (owner's decision): the minimum applies even when the s.173 amount is zero. No adjustment is shown on an empty form.
+4. **Rent repairs allowance.** s.38(1)(e): 30% commercial, 25% other, of the rental value. Best guess: it is not applied to the 10% deposit special rent, and advance rent adjusted against future rent is not a security deposit. The s.37 formula and the deposit rule are from Paripatra §14–15.
+5. **Investment limits** (Sixth Schedule Part 3 para 2, yearly totals per kind): DPS ৳1,20,000; life insurance premium 10% of sum assured; government securities including Sanchaypatra ৳5,00,000; mutual fund / unit certificates ৳5,00,000; listed shares, provident fund and approved donations uncapped. Paripatra §127 removes the mutual fund cap only from 1 Jul 2026.
+6. Any dividend exemption for individuals: none (Sixth Schedule Part 1 has none; Paripatra §127 adds none).
 
-A qualified person signs off on the config before launch. Paripatra 2026–27 examples 23, 24, 27, 29 and 30 are unit tests in `src/engine/calculate.test.ts`.
+A qualified person should still review the config when one is available. Paripatra 2026–27 examples 23, 24, 27, 29 and 30 are unit tests in `src/engine/calculate.test.ts`.
 
 ## 5. Export (.xlsx only)
 

@@ -1,6 +1,6 @@
 import type { Workbook, Worksheet } from 'exceljs'
 import {
-  eligibleInvestment,
+  eligibleInvestments,
   rentIncome,
   type Rules,
   type TaxInputs,
@@ -169,8 +169,7 @@ function incomeSheet(wb: Workbook, inputs: TaxInputs, result: TaxResult, rules: 
   w.gap()
 
   // Abroad
-  w.row([t('foreign.title'), null, lineNote(10)], 'heading')
-  w.row([t('foreign.taxable'), inputs.foreign.taxable], 'total')
+  w.row([t('foreign.title')], 'heading')
   w.row([t('foreign.exempt'), inputs.foreign.exempt, t('xlsx.income.exemptNote')])
   w.gap()
 
@@ -248,9 +247,10 @@ function investmentsSheet(wb: Workbook, inputs: TaxInputs, result: TaxResult, ru
     [t('invest.title'), t('xlsx.col.amount'), t('xlsx.col.sumAssured'), t('xlsx.col.counts')],
   )
   if (!inputs.investments.length) w.row([t('xlsx.none'), 0, null, 0])
-  for (const item of inputs.investments) {
-    w.row([t(`invest.kind.${item.kind}`), item.amount, item.sumAssured ?? null, eligibleInvestment(item, rules)])
-  }
+  const eligible = eligibleInvestments(inputs.investments, rules)
+  inputs.investments.forEach((item, i) => {
+    w.row([t(`invest.kind.${item.kind}`), item.amount, item.sumAssured ?? null, eligible[i]])
+  })
   w.row([t('xlsx.tax.eligibleInvestment'), null, null, result.rebate.eligibleInvestment], 'total')
   w.gap()
 
@@ -287,7 +287,7 @@ export function returnFormLines(result: TaxResult): { line: number; amount: numb
     { line: 7, amount: 0, note: notCovered },
     { line: 8, amount: 0, note: notCovered },
     { line: 9, amount: 0, note: notCovered },
-    { line: 10, amount: inc.foreignTaxable },
+    { line: 10, amount: 0, note: notCovered },
     { line: 11, amount: inc.total },
     { line: 12, amount: result.grossTax },
     { line: 13, amount: result.rebate.amount },

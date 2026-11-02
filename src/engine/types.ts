@@ -39,7 +39,12 @@ export interface Rules {
     securityDepositSpecialRentRate: number
   }
   rebate: { incomeRate: number; investmentRate: number; cap: number }
-  investmentCaps: { dps: number; lifeInsurancePremiumOfSumAssured: number }
+  investmentCaps: {
+    dps: number
+    lifeInsurancePremiumOfSumAssured: number
+    governmentSecurities: number
+    mutualFunds: number
+  }
   defaultTdsRates: { sanchaypatra: number; bankInterest: number; dividend: number }
   wealthSurcharge: {
     bands: { upTo: number | null; rate: number }[]
@@ -85,6 +90,7 @@ export type InvestmentKind =
   | 'dps'
   | 'lifeInsurance'
   | 'sanchaypatra'
+  | 'mutualFund'
   | 'listedShares'
   | 'providentFund'
   | 'donation'
@@ -102,7 +108,7 @@ export interface TaxInputs {
   rent: RentProperty[]
   business: { netProfit: number; tds: number }
   financialAssets: FinancialAssetItem[]
-  foreign: { taxable: number; exempt: number }
+  foreign: { exempt: number } // remittances only; income kept abroad is out of scope (SPEC §4.8)
   investments: InvestmentItem[]
   taxPaid: { advanceTax: number; otherTds: number; refundAdjustment: number }
   wealth: { netWealth: number; cars: number; housePropertySqft: number } | null
@@ -125,7 +131,6 @@ export interface TaxResult {
     rent: { gross: number; deductions: number; net: number }
     business: number
     financialAssets: number
-    foreignTaxable: number
     total: number // IT-11GA line 11
   }
   exemptIncome: number // IT-11GA line 26

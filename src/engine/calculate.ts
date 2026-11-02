@@ -1,6 +1,7 @@
 import type {
   FilingWindow,
   InvestmentItem,
+  InvestmentKind,
   Profile,
   RebateLimit,
   RentProperty,
@@ -68,18 +69,29 @@ export function rentIncome(property: RentProperty, rules: Rules) {
   return { gross, deductions, net: Math.max(0, gross - deductions) }
 }
 
-export function eligibleInvestment(item: InvestmentItem, rules: Rules): number {
+/**
+ * Sixth Schedule Part 3: how much of each investment counts for the rebate, in input order.
+ * Yearly caps apply to the total of each kind, so splitting one kind across items doesn't raise it.
+ */
+export function eligibleInvestments(items: InvestmentItem[], rules: Rules): number[] {
   const caps = rules.investmentCaps
-  switch (item.kind) {
-    case 'dps':
-      return Math.min(item.amount, caps.dps)
-    case 'lifeInsurance':
-      return item.sumAssured
+  const room: Partial<Record<InvestmentKind, number>> = {
+    dps: caps.dps,
+    sanchaypatra: caps.governmentSecurities,
+    mutualFund: caps.mutualFunds,
+  }
+  return items.map((item) => {
+    let amount =
+      item.kind === 'lifeInsurance' && item.sumAssured
         ? Math.min(item.amount, round(item.sumAssured * caps.lifeInsurancePremiumOfSumAssured))
         : item.amount
-    default:
-      return item.amount
-  }
+    const left = room[item.kind]
+    if (left !== undefined) {
+      amount = Math.min(amount, left)
+      room[item.kind] = left - amount
+    }
+    return amount
+  })
 }
 
 /** s.78: the lowest of a share of income, a share of eligible investment, and a fixed cap. */
@@ -104,16 +116,16 @@ export function wealthSurchargeRate(wealth: TaxInputs['wealth'], rules: Rules): 
 }
 
 /** s.170: rebate or extra tax depending on when the return is filed, based on the s.173 amount payable. */
-export function filingAdjustment(payable: number, filingDate: string, rules: Rules) {
+export function filingAdjustment(payable: number, filingDate: string, rules: Rules, hasIncome = true) {
   const window: FilingWindow | undefined = rules.filingWindows.find(
     (w) => filingDate >= w.from && filingDate <= w.to,
   )
   if (!window) return { kind: 'outsideWindows' as const, amount: 0 }
-  // Open question (SPEC §4.8): whether the extra-tax floor applies when nothing is payable.
-  if (window.kind === 'none' || payable <= 0) return { kind: window.kind, amount: 0 }
+  if (window.kind === 'none' || !hasIncome) return { kind: window.kind, amount: 0 }
   const base = round(payable * window.rate!)
+  // "Whichever is higher" read literally (SPEC §4.8): late filers pay the minimum even with nothing left to pay.
   return window.kind === 'rebate'
-    ? { kind: window.kind, amount: -Math.min(base, window.max!) }
+    ? { kind: window.kind, amount: -Math.min(base, window.max!) || 0 } // no -0 when nothing is payable
     : { kind: window.kind, amount: Math.max(base, window.min!) }
 }
 
@@ -128,14 +140,13 @@ export function calculate(inputs: TaxInputs, rules: Rules): TaxResult {
   const business = Math.max(0, inputs.business.netProfit)
   // From tax year 2026-27 Sanchaypatra profit is ordinary income; its TDS is advance tax (s.163 as replaced).
   const financialAssets = sum(inputs.financialAssets.map((f) => f.gross))
-  const foreignTaxable = inputs.foreign.taxable
-  const total = employment.taxable + rent.net + business + financialAssets + foreignTaxable
+  const total = employment.taxable + rent.net + business + financialAssets
 
   const threshold = taxFreeThreshold(inputs.profile, rules)
   const slabs = slabTax(total, threshold, rules)
   const grossTax = sum(slabs.map((s) => s.tax))
 
-  const investment = sum(inputs.investments.map((i) => eligibleInvestment(i, rules)))
+  const investment = sum(eligibleInvestments(inputs.investments, rules))
   // No final-tax, reduced-rate or firm-share income is in scope, so the rebate base is total income.
   const rebateCalc = investmentRebate(total, investment, rules)
   const rebate = { ...rebateCalc, amount: Math.min(rebateCalc.amount, grossTax) }
@@ -167,11 +178,11 @@ export function calculate(inputs: TaxInputs, rules: Rules): TaxResult {
   }
 
   const payableBeforeFilingAdjustment = Math.max(0, totalPayable - taxPaid.total)
-  const filing = filingAdjustment(payableBeforeFilingAdjustment, inputs.profile.filingDate, rules)
+  const filing = filingAdjustment(payableBeforeFilingAdjustment, inputs.profile.filingDate, rules, total > 0)
 
   return {
     rulesVersion: rules.version,
-    income: { employment, rent, business, financialAssets, foreignTaxable, total },
+    income: { employment, rent, business, financialAssets, total },
     exemptIncome: employment.exemption + inputs.foreign.exempt,
     threshold,
     slabs,

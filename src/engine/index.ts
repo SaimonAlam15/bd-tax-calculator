@@ -26,7 +26,7 @@ export function emptyInputs(filingDate: string): TaxInputs {
     rent: [],
     business: { netProfit: 0, tds: 0 },
     financialAssets: [],
-    foreign: { taxable: 0, exempt: 0 },
+    foreign: { exempt: 0 },
     investments: [],
     taxPaid: { advanceTax: 0, otherTds: 0, refundAdjustment: 0 },
     wealth: null,

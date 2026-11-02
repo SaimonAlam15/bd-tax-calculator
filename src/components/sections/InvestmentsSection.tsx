@@ -1,4 +1,4 @@
-import { currentRules as rules, eligibleInvestment, type InvestmentKind, type TaxInputs } from '../../engine'
+import { currentRules as rules, eligibleInvestments, type InvestmentKind, type TaxInputs } from '../../engine'
 import { formatDate, t } from '../../i18n'
 import { formatPercent, formatTaka } from '../../lib/format'
 import type { Update } from '../../state/useTaxInputs'
@@ -8,6 +8,7 @@ const KINDS: InvestmentKind[] = [
   'dps',
   'lifeInsurance',
   'sanchaypatra',
+  'mutualFund',
   'listedShares',
   'providentFund',
   'donation',
@@ -17,6 +18,7 @@ const KINDS: InvestmentKind[] = [
 export function InvestmentsSection({ inputs, update }: { inputs: TaxInputs; update: Update }) {
   const items = inputs.investments
   const total = items.reduce((a, i) => a + i.amount, 0)
+  const eligible = eligibleInvestments(items, rules)
 
   return (
     <Section
@@ -25,7 +27,6 @@ export function InvestmentsSection({ inputs, update }: { inputs: TaxInputs; upda
       summary={total ? formatTaka(total) : undefined}
     >
       {items.map((item, i) => {
-        const eligible = eligibleInvestment(item, rules)
         return (
           <ItemCard
             key={i}
@@ -56,7 +57,7 @@ export function InvestmentsSection({ inputs, update }: { inputs: TaxInputs; upda
                 />
               )}
             </Grid>
-            {eligible < item.amount && <Computed>{t('invest.capped', { amount: formatTaka(eligible) })}</Computed>}
+            {eligible[i] < item.amount && <Computed>{t('invest.capped', { amount: formatTaka(eligible[i]) })}</Computed>}
           </ItemCard>
         )
       })}

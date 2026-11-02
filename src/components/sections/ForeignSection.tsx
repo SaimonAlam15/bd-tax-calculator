@@ -6,16 +6,9 @@ import { AmountField, Grid, Section } from '../ui'
 
 export function ForeignSection({ inputs, update }: { inputs: TaxInputs; update: Update }) {
   const f = inputs.foreign
-  const total = f.taxable + f.exempt
   return (
-    <Section title={t('foreign.title')} summary={total ? formatTaka(total) : undefined}>
+    <Section title={t('foreign.title')} intro={t('foreign.intro')} summary={f.exempt ? formatTaka(f.exempt) : undefined}>
       <Grid>
-        <AmountField
-          label={t('foreign.taxable')}
-          hint={t('foreign.taxableHint')}
-          value={f.taxable}
-          onChange={(v) => update((d) => (d.foreign.taxable = v))}
-        />
         <AmountField
           label={t('foreign.exempt')}
           hint={t('foreign.exemptHint')}

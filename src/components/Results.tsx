@@ -84,7 +84,6 @@ export function Breakdown({ result }: { result: TaxResult }) {
         <Row label={t('results.line.rent')} line={2} value={inc.rent.net} />
         <Row label={t('results.line.business')} line={4} value={inc.business} />
         <Row label={t('results.line.financialAssets')} line={6} value={inc.financialAssets} />
-        <Row label={t('results.line.foreign')} line={10} value={inc.foreignTaxable} />
         <Row label={t('results.line.total')} line={11} value={inc.total} strong />
         {result.exemptIncome > 0 && <Row label={t('results.exempt')} value={result.exemptIncome} muted />}
       </Group>

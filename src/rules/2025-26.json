@@ -35,7 +35,7 @@
   "salaryExemption": { "fraction": 0.3333333333333333, "cap": 500000 },
 
   "rent": {
-    "_note": "UNVERIFIED: s.38 repairs allowance rates are carried over from earlier law; confirm before launch (SPEC §4.8).",
+    "_note": "s.38(1)(e): 30% commercial, 25% other, on rent only (assumed not on deposit special rent; SPEC §4.8).",
     "repairsAllowanceRate": { "residential": 0.25, "commercial": 0.3 },
     "securityDepositSpecialRentRate": 0.1
   },
@@ -43,9 +43,11 @@
   "rebate": { "incomeRate": 0.03, "investmentRate": 0.1, "cap": 750000 },
 
   "investmentCaps": {
-    "_note": "UNVERIFIED per-item limits from Sixth Schedule Part 3; confirm before launch (SPEC §4.8).",
+    "_note": "Yearly limits from Sixth Schedule Part 3 para 2(1) and 2(7)(a)-(c). Paripatra 2026-27 §127 drops the mutual fund cap only from 1 Jul 2026.",
     "dps": 120000,
-    "lifeInsurancePremiumOfSumAssured": 0.1
+    "lifeInsurancePremiumOfSumAssured": 0.1,
+    "governmentSecurities": 500000,
+    "mutualFunds": 500000
   },
 
   "defaultTdsRates": { "sanchaypatra": 0.1, "bankInterest": 0.1, "dividend": 0.1 },

@@ -25,7 +25,7 @@ function sampleInputs(): TaxInputs {
     },
   ]
   inputs.financialAssets = [{ kind: 'sanchaypatra', gross: 100000, tds: 10000 }]
-  inputs.foreign = { taxable: 0, exempt: 250000 }
+  inputs.foreign = { exempt: 250000 }
   inputs.investments = [{ kind: 'dps', amount: 60000 }]
   return inputs
 }
