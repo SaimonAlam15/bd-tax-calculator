@@ -34,8 +34,8 @@ jobs:
       - run: npm test
       - run: npm run build
         env:
-          # Pages serves the site from /<repo-name>/.
-          BASE_PATH: /${{ github.event.repository.name }}/
+          # /<repo-name>/ on github.io, / on a custom domain.
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}/
           # Full public URL (follows a custom domain if one is set up).
           SITE_URL: ${{ steps.pages.outputs.base_url }}
           VITE_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
