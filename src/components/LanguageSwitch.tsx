@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { currentRules as rules } from '../engine'
 import { t } from '../i18n'
 import { setSettings, useDisplaySettings, type Language } from '../i18n/settings'
 import { Segmented } from './ui'
@@ -14,7 +15,7 @@ export function LanguageSwitch() {
 
   useEffect(() => {
     document.documentElement.lang = language
-    document.title = t('app.title')
+    document.title = t('app.pageTitle', { ay: rules.assessmentYear })
   }, [language])
 
   return (

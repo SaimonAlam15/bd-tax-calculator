@@ -88,7 +88,14 @@ export function App() {
         </aside>
       </main>
 
-      <footer className="mx-auto max-w-6xl px-4 pb-8 text-xs text-stone-500 sm:px-6 dark:text-stone-400">
+      <footer className="mx-auto max-w-6xl space-y-1 px-4 pb-8 text-xs text-stone-500 sm:px-6 dark:text-stone-400">
+        <p>
+          {t('footer.about', {
+            ay: rules.assessmentYear,
+            start: formatDate(rules.incomeYear.start),
+            end: formatDate(rules.incomeYear.end),
+          })}
+        </p>
         <p>
           {t('footer.rules', { version: rules.version, date: formatDate(rules.lastChecked) })}{' '}
           {rules.sources.map((s) => (
@@ -97,7 +104,7 @@ export function App() {
             </a>
           ))}
         </p>
-        <p className="mt-1">{t('results.disclaimer')}</p>
+        <p>{t('results.disclaimer')}</p>
       </footer>
 
       {/* Mobile: sticky bar with the headline figure, opening a full-screen breakdown. */}
