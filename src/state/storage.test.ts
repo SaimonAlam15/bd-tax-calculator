@@ -1,5 +1,5 @@
 import { emptyInputs } from '../engine'
-import { clearInputs, loadInputs, saveInputs, STORAGE_KEY } from './storage'
+import { clearInputs, loadInputs, loadTicks, saveInputs, saveTicks, STORAGE_KEY } from './storage'
 
 const HOUR = 60 * 60 * 1000
 
@@ -60,6 +60,15 @@ describe('input cache', () => {
     expect(loadInputs(1)).toBeNull()
   })
 
+  it('keeps checklist ticks for 3 hours and clears them with the inputs', () => {
+    saveTicks(['tin', 'salary'], 0)
+    expect(loadTicks(3 * HOUR - 1)).toEqual(['tin', 'salary'])
+    expect(loadTicks(3 * HOUR)).toEqual([])
+    saveTicks(['tin'], 0)
+    clearInputs()
+    expect(loadTicks(1)).toEqual([])
+  })
+
   it('works when storage is blocked', () => {
     vi.stubGlobal('localStorage', {
       getItem: () => {
@@ -75,5 +84,7 @@ describe('input cache', () => {
     expect(() => saveInputs(inputs())).not.toThrow()
     expect(loadInputs()).toBeNull()
     expect(() => clearInputs()).not.toThrow()
+    expect(loadTicks()).toEqual([])
+    expect(() => saveTicks(['tin'])).not.toThrow()
   })
 })

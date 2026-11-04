@@ -8,6 +8,7 @@ import { RentSection } from './components/sections/RentSection'
 import { SalarySection } from './components/sections/SalarySection'
 import { TaxPaidSection } from './components/sections/TaxPaidSection'
 import { WealthSection } from './components/sections/WealthSection'
+import { DeadlineBanner, FilingHelp, useChecklistTicks } from './components/FilingHelp'
 import { LanguageSwitch } from './components/LanguageSwitch'
 import { FileOnlineLink, Headline, ResultsPanel } from './components/Results'
 import { calculate, currentRules as rules } from './engine'
@@ -21,6 +22,7 @@ export function App() {
   // Every string comes from t(), so re-rendering from the top switches the whole page.
   useDisplaySettings()
   const { inputs, update, reset } = useTaxInputs()
+  const checklist = useChecklistTicks()
   const result = useMemo(() => calculate(inputs, rules), [inputs])
   const [sheetOpen, setSheetOpen] = useState(false)
 
@@ -59,6 +61,7 @@ export function App() {
 
       <main className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-3">
+          <DeadlineBanner inputs={inputs} />
           <p className="text-sm text-stone-600 dark:text-stone-400">{t('app.privacy', { hours: CACHE_HOURS })}</p>
           <ProfileSection {...sectionProps} />
           <SalarySection {...sectionProps} />
@@ -73,7 +76,11 @@ export function App() {
             <button
               type="button"
               className="rounded-lg px-3 py-2 text-sm text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800"
-              onClick={() => window.confirm(t('app.resetConfirm')) && reset()}
+              onClick={() => {
+                if (!window.confirm(t('app.resetConfirm'))) return
+                reset()
+                checklist.clear()
+              }}
             >
               {t('app.reset')}
             </button>
@@ -87,6 +94,8 @@ export function App() {
           </div>
         </aside>
       </main>
+
+      <FilingHelp inputs={inputs} result={result} ticks={checklist.ticks} onTicksChange={checklist.setTicks} />
 
       <footer className="mx-auto max-w-6xl space-y-1 px-4 pb-8 text-xs text-stone-500 sm:px-6 dark:text-stone-400">
         <p>
