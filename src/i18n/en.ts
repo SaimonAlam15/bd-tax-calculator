@@ -181,9 +181,9 @@ export const en = {
   'filing.online.title': '1. Do you need to file online?',
   'filing.online.yes': 'Yes',
   'filing.online.optional': 'Paper allowed',
-  'filing.online.must': 'You need to file online. NBR requires most individual taxpayers to use the e-return.',
+  'filing.online.must': 'Unless one of the exceptions below applies to you, you need to file online. NBR requires most individual taxpayers to use the e-return.',
   'filing.online.paper': 'As you are aged 65 or older or a person with a disability, you may file a paper return at your tax circle instead. Filing online is open to you too.',
-  'filing.online.exceptions': 'Paper filing is allowed only for people aged 65 or older, people with a disability, Bangladeshis living abroad, foreign nationals working in Bangladesh, and returns for a deceased taxpayer. Anyone else needs prior approval from their Additional or Joint Commissioner of Taxes.',
+  'filing.online.exceptions': 'Paper filing is allowed only for people aged 65 or older, people with a disability, Bangladeshis living abroad, foreign nationals working in Bangladesh, and returns for a deceased taxpayer. Anyone else who cannot register on the e-return because of a technical problem can ask their Additional or Joint Commissioner of Taxes for approval to file on paper.',
 
   'filing.register.title': '2. Register on the e-return site',
   'filing.register.step1': 'Go to {site} and choose Register.',
