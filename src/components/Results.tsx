@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react'
 import { currentRules as rules, type TaxInputs, type TaxResult } from '../engine'
+import { E_RETURN_URL } from '../filing/guide'
 import { t } from '../i18n'
 import { formatPercent, formatTaka } from '../lib/format'
 import { DownloadButton } from './DownloadButton'
-
-export const E_RETURN_URL = 'https://etaxnbr.gov.bd'
 
 function Row(props: { label: ReactNode; value: number; line?: number; strong?: boolean; muted?: boolean }) {
   return (

@@ -46,7 +46,7 @@ Non-residents, firms, companies; capital gains; agricultural income; car/environ
 The site never submits returns or asks for e-return credentials (NBR has no public filing API, and nothing leaves the browser). These features cut the work of filing yourself:
 
 1. **E-return link**: a prominent "File online at etaxnbr.gov.bd" button in the header and in the results.
-2. **E-return copy view**: a results layout that follows the order of the e-return screens, with a one-tap copy button beside each figure (plain digits, no commas, so it pastes cleanly). It follows IT-11GA (2023) line order until the portal screens are mapped from screenshots (see §10).
+2. **E-return copy view**: a results layout that follows the order of the e-return screens, with a one-tap copy button beside each figure (plain digits, no commas, so it pastes cleanly). Mapped from screenshots of the assessment year 2026–27 portal (4 Nov 2026): Assessment, IT10B Requirements, Tax Exempted Income (Foreign Remittance), Expenditure (IT10BB), Assets & Liabilities (IT10B) and Tax & Payment. The salary, rent, business and financial-asset screens are not mapped yet, so those figures are listed by head. Where the portal adds the late-filing extra tax has not been seen yet.
 3. **Personal document checklist**, built from the user's inputs. Each item says what the document is and where to get it, for example:
    - salary → salary certificate showing TDS (from employer)
    - bank or FDR interest → TDS certificate from each bank
@@ -59,7 +59,7 @@ The site never submits returns or asks for e-return credentials (NBR has no publ
 4. **"Do you have to file online?" check**, based on Profile answers. Paper filing is allowed for people aged 65+, people with disabilities (with a certificate), Bangladeshis living abroad, people filing for a deceased taxpayer, and foreign nationals working in Bangladesh. Anyone else needs prior approval from their Additional or Joint Commissioner. Everyone else sees "You need to file online".
 5. **Registration guide**: a short step-by-step for signing up on the e-return portal, plus common problems (e.g. the mobile number must be registered to the user's own NID). It links to the NBR call centre (09643717171).
 6. **Deadline and filing-window banner**: days left until the 30 Nov deadline, and whether filing today earns the early rebate, has no effect, or adds extra tax (§4.7), with the amount.
-7. **Payment guidance**: the amount payable, a reminder that the return is only complete once paid and submitted, and the payment methods the portal accepts (to be confirmed from the portal).
+7. **Payment guidance**: the amount payable, a reminder that the return is only complete once paid and submitted, and how the portal's Pay Now and Proceed to online return buttons work. The payment methods behind Pay Now are not listed until they are confirmed from the portal.
 8. **After filing**: a reminder to download the acknowledgement slip and the `.xlsx` export, and to keep both for next year.
 
 All guide text is bilingual and kept in a content file, so the wording can be updated without code changes. Each guide shows the date it was last checked.
@@ -169,4 +169,4 @@ Formatting: bold headers, BDT number format with thousands separators, frozen he
 ## 10. Planned for v2
 1. **Prefill from last year's file**: the user picks last year's `.xlsx` export, which is read in the browser (never uploaded), and its inputs fill the form, with figures marked "from last year — please update". The export therefore includes a hidden, versioned "inputs" sheet from v1 onwards, so that v1 files can be imported later.
 2. **Assets and liabilities helper**: a guided statement of assets and liabilities (as asked for in the e-return), exported in the same `.xlsx` file. This was out of scope in v1.
-3. **Exact e-return field mapping**: once screenshots of each e-return screen are available (personal details hidden), match the copy view's sections, field names and order to the portal exactly.
+3. **Exact e-return field mapping**: most screens are mapped (§3.1 item 2). Still needed: screenshots of the salary, rent, business and financial-asset screens and the payment page (personal details hidden), so the copy view can follow their field names and order exactly.

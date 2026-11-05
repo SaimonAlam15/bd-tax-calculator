@@ -42,7 +42,34 @@ export function saveInputs(inputs: TaxInputs, now = Date.now()) {
 export function clearInputs() {
   try {
     localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(CHECKLIST_KEY)
   } catch {
     // Nothing to clear.
+  }
+}
+
+// Ticked documents in the filing checklist (SPEC §3.1), kept for the same 3 hours.
+export const CHECKLIST_KEY = 'bdtax.checklist'
+
+export function loadTicks(now = Date.now()): string[] {
+  try {
+    const raw = localStorage.getItem(CHECKLIST_KEY)
+    if (!raw) return []
+    const saved = JSON.parse(raw) as { savedAt?: number; ticks?: unknown }
+    if (typeof saved.savedAt === 'number' && now - saved.savedAt < TTL_MS && Array.isArray(saved.ticks)) {
+      return saved.ticks.filter((x): x is string => typeof x === 'string')
+    }
+    localStorage.removeItem(CHECKLIST_KEY)
+  } catch {
+    // Storage blocked or data corrupt: nothing ticked.
+  }
+  return []
+}
+
+export function saveTicks(ticks: string[], now = Date.now()) {
+  try {
+    localStorage.setItem(CHECKLIST_KEY, JSON.stringify({ savedAt: now, ticks }))
+  } catch {
+    // Not saved; ticks last for this visit only.
   }
 }
