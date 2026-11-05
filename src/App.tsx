@@ -8,6 +8,7 @@ import { RentSection } from './components/sections/RentSection'
 import { SalarySection } from './components/sections/SalarySection'
 import { TaxPaidSection } from './components/sections/TaxPaidSection'
 import { WealthSection } from './components/sections/WealthSection'
+import { AdSlot, adsEnabled } from './components/AdSlot'
 import { DeadlineBanner, FilingHelp, useChecklistTicks } from './components/FilingHelp'
 import { LanguageSwitch } from './components/LanguageSwitch'
 import { FileOnlineLink, Headline, ResultsPanel } from './components/Results'
@@ -62,7 +63,10 @@ export function App() {
       <main className="mx-auto grid max-w-6xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-3">
           <DeadlineBanner inputs={inputs} />
-          <p className="text-sm text-stone-600 dark:text-stone-400">{t('app.privacy', { hours: CACHE_HOURS })}</p>
+          <p className="text-sm text-stone-600 dark:text-stone-400">
+            {t('app.privacy', { hours: CACHE_HOURS })} {adsEnabled && t('app.privacyAds')}{' '}
+            <PrivacyLink />
+          </p>
           <ProfileSection {...sectionProps} />
           <SalarySection {...sectionProps} />
           <RentSection {...sectionProps} />
@@ -95,7 +99,11 @@ export function App() {
         </aside>
       </main>
 
+      <AdSlot slot={import.meta.env.VITE_ADSENSE_SLOT_CALCULATOR} />
+
       <FilingHelp inputs={inputs} result={result} ticks={checklist.ticks} onTicksChange={checklist.setTicks} />
+
+      <AdSlot slot={import.meta.env.VITE_ADSENSE_SLOT_FILING} />
 
       <footer className="mx-auto max-w-6xl space-y-1 px-4 pb-8 text-xs text-stone-500 sm:px-6 dark:text-stone-400">
         <p>
@@ -114,6 +122,9 @@ export function App() {
           ))}
         </p>
         <p>{t('results.disclaimer')}</p>
+        <p>
+          <PrivacyLink />
+        </p>
       </footer>
 
       {/* Mobile: sticky bar with the headline figure, opening a full-screen breakdown. */}
@@ -149,5 +160,13 @@ export function App() {
         </div>
       )}
     </div>
+  )
+}
+
+function PrivacyLink() {
+  return (
+    <a href={`${import.meta.env.BASE_URL}privacy.html`} className="underline underline-offset-2">
+      {t('app.privacyPolicy')}
+    </a>
   )
 }
