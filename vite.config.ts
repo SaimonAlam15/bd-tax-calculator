@@ -13,7 +13,7 @@ if (adsenseClient && !/^ca-pub-\d{10,20}$/.test(adsenseClient)) {
   throw new Error(`VITE_ADSENSE_CLIENT should look like ca-pub-1234567890123456, got "${adsenseClient}"`)
 }
 
-/** Fills %SITE_URL% in the HTML pages, adds the optional Search Console and AdSense tags, and writes sitemap.xml and ads.txt. */
+/** Fills %SITE_URL% in the HTML pages, adds the optional Search Console and AdSense tags (account meta tag and script), and writes sitemap.xml and ads.txt. */
 function siteMeta(): Plugin {
   const verification = process.env.GOOGLE_SITE_VERIFICATION
   return {
@@ -28,7 +28,8 @@ function siteMeta(): Plugin {
         .replace(
           '<!--adsense-->',
           adsenseClient
-            ? `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>`
+            ? `<meta name="google-adsense-account" content="${adsenseClient}" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}" crossorigin="anonymous"></script>`
             : '',
         ),
     generateBundle() {
