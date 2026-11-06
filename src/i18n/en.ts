@@ -4,7 +4,10 @@ export const en = {
   'app.pageTitle': 'Bangladesh Income Tax Calculator {ay} | আয়কর ক্যালকুলেটর',
   'app.yearLabel': 'Income earned {start} – {end} · Assessment year {ay}',
   'app.fileOnline': 'File online',
-  'app.privacy': 'Everything you enter stays in this browser and is deleted {hours} hours after your last change. Nothing is sent to a server.',
+  'app.privacy': 'Everything you enter stays in this browser and is deleted {hours} hours after your last change. None of it is sent to a server.',
+  'app.privacyAds': 'The site shows Google ads, which use cookies; they never see your figures.',
+  'app.privacyPolicy': 'Privacy policy',
+  'ads.label': 'Advertisement',
   'app.reset': 'Clear my data',
   'app.resetConfirm': 'Clear everything you have entered? It will also be deleted from this browser.',
 

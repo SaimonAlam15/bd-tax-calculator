@@ -1,7 +1,12 @@
 # Builds the site and publishes it to GitHub Pages on every push to main.
 # One-time setup: Settings → Pages → Source: "GitHub Actions".
-# Optional: Settings → Secrets and variables → Actions → Variables → GOATCOUNTER_CODE and
-# GOOGLE_SITE_VERIFICATION (the content value of Search Console's HTML meta tag).
+# Optional: Settings → Secrets and variables → Actions → Variables:
+#   GOOGLE_SITE_VERIFICATION  the content value of Search Console's HTML meta tag
+#   GOATCOUNTER_CODE          GoatCounter site code (free only for non-commercial sites)
+#   CF_ANALYTICS_TOKEN        Cloudflare Web Analytics site token
+#   ADSENSE_CLIENT            AdSense publisher ID, ca-pub-… (adds the AdSense script and ads.txt)
+#   ADSENSE_SLOT_CALCULATOR   AdSense ad unit ID shown below the calculator
+#   ADSENSE_SLOT_FILING       AdSense ad unit ID shown below the filing guide
 name: Deploy to GitHub Pages
 
 on:
@@ -40,6 +45,10 @@ jobs:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
           VITE_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          VITE_CF_ANALYTICS_TOKEN: ${{ vars.CF_ANALYTICS_TOKEN }}
+          VITE_ADSENSE_CLIENT: ${{ vars.ADSENSE_CLIENT }}
+          VITE_ADSENSE_SLOT_CALCULATOR: ${{ vars.ADSENSE_SLOT_CALCULATOR }}
+          VITE_ADSENSE_SLOT_FILING: ${{ vars.ADSENSE_SLOT_FILING }}
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

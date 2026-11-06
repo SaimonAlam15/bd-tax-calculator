@@ -144,10 +144,17 @@ Formatting: bold headers, BDT number format with thousands separators, frozen he
 - Inputs are cached in `localStorage` with a timestamp and **expire after 3 hours**. Expired data is deleted on load. All reads and writes are wrapped in try/catch, so the site works without storage.
 - A visible "Clear my data" button wipes the cache immediately.
 - Analytics record page views only and never record form contents (see §7).
+- Ads (§7) use Google cookies, so the page says so next to the privacy note and links to `privacy.html`, a static English and Bangla privacy policy. Visitors from the EEA, UK and Switzerland get Google's consent message, switched on in AdSense under Privacy & messaging; there is no consent code in the site.
 
 ## 7. Analytics
 
-**GoatCounter** (free for non-commercial use, cookie-free, no personal data, so no consent banner is needed). Track page views plus two custom events with no payload: `calculate-viewed` and `xlsx-downloaded`. Can be swapped for Cloudflare Web Analytics later if a custom domain is put behind Cloudflare.
+**GoatCounter** (cookie-free, no personal data, so no consent banner is needed). Track page views plus two custom events with no payload: `calculate-viewed` and `xlsx-downloaded`. GoatCounter is free only for non-commercial use, so once the site shows ads it needs a paid plan, or it is replaced by **Cloudflare Web Analytics** (free, cookie-free, page views only, no custom events). Each is on only when its code is set in the deploy variables.
+
+**Ads**: Google AdSense, added from November 2026. The build adds the AdSense script and `ads.txt` only when `ADSENSE_CLIENT` is set; each ad unit also needs its slot ID. There are two manual units, no Auto ads:
+- below the calculator, before the filing guide;
+- below the filing guide, before the footer.
+
+No ads inside the form, the results panel, the mobile results sheet or near the copy buttons, where accidental clicks would break AdSense policy. Each unit reserves 250px of height so the page doesn't shift when it fills.
 
 ## 8. Technical
 
