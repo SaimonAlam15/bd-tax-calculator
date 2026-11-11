@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { currentRules as rules } from '../engine'
 import { t } from '../i18n'
-import { setSettings, useDisplaySettings, type Language } from '../i18n/settings'
+import { setSettings, syncLanguagePath, useDisplaySettings, type Language } from '../i18n/settings'
 import { Segmented } from './ui'
 
 // Each language is labelled in itself so people can find their own.
@@ -16,6 +16,7 @@ export function LanguageSwitch() {
   useEffect(() => {
     document.documentElement.lang = language
     document.title = t('app.pageTitle', { ay: rules.assessmentYear })
+    syncLanguagePath(language)
   }, [language])
 
   return (

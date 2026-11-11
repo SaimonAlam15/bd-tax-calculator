@@ -4,7 +4,7 @@ import type { MessageKey } from './en'
 // to Bangla numerals when that setting is on. Terms follow the NBR Paripatra where it has one.
 export const bn: Record<MessageKey, string> = {
   'app.title': 'বাংলাদেশ আয়কর ক্যালকুলেটর',
-  'app.pageTitle': 'আয়কর ক্যালকুলেটর {ay} | Bangladesh Income Tax Calculator',
+  'app.pageTitle': 'আয়কর ক্যালকুলেটর {ay} | বাংলাদেশ আয়কর হিসাব',
   'app.yearLabel': 'আয়ের সময়কাল {start} – {end} · করবর্ষ {ay}',
   'app.fileOnline': 'অনলাইনে রিটার্ন দিন',
   'app.privacy': 'আপনার দেওয়া সব তথ্য এই ব্রাউজারেই থাকে এবং শেষ পরিবর্তনের {hours} ঘণ্টা পরে মুছে যায়। কোনো সার্ভারে পাঠানো হয় না।',
