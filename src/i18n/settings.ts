@@ -11,14 +11,28 @@ export interface DisplaySettings {
 const STORAGE_KEY = 'bdtax.display'
 const defaults: DisplaySettings = { language: 'en', banglaDigits: true }
 
+// The Bangla page has its own address, so search engines can index it (see vite.config.ts).
+const BANGLA_PATH = `${import.meta.env.BASE_URL}bn/`
+
 function load(): DisplaySettings {
+  let settings = defaults
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? 'null') as Partial<DisplaySettings> | null
-    if (saved && (saved.language === 'en' || saved.language === 'bn')) return { ...defaults, ...saved }
+    if (saved && (saved.language === 'en' || saved.language === 'bn')) settings = { ...defaults, ...saved }
   } catch {
     // Storage blocked or corrupt: fall through to defaults.
   }
-  return defaults
+  // A link to the Bangla page opens in Bangla, whatever was saved.
+  if (typeof location !== 'undefined' && location.pathname.startsWith(BANGLA_PATH)) {
+    settings = { ...settings, language: 'bn' }
+  }
+  return settings
+}
+
+/** Puts the address in step with the language, without a new history entry. */
+export function syncLanguagePath(language: Language) {
+  const path = language === 'bn' ? BANGLA_PATH : import.meta.env.BASE_URL
+  if (location.pathname !== path) history.replaceState(history.state, '', path + location.search + location.hash)
 }
 
 let current = load()

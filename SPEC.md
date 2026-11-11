@@ -34,7 +34,7 @@ Non-residents, firms, companies; capital gains; agricultural income; car/environ
 
 ## 3. User experience
 
-- **Bilingual**: Bangla and English with a toggle in the header; option to show numbers in Bangla numerals. Language preference remembered in `localStorage`.
+- **Bilingual**: Bangla and English with a toggle in the header; option to show numbers in Bangla numerals. Language preference remembered in `localStorage`. The Bangla version also has its own address, `/bn/`, so search engines index it: the build writes `bn/index.html` with Bangla title, description and link-preview tags, both pages carry `hreflang` links to each other, and the sitemap lists both. Opening `/bn/` always shows Bangla; switching language updates the address without a page load.
 - **Mobile first**. Must work well at 360px width.
 - **Single page**: collapsible input sections (Profile → Salary → Rent → Business → Interest & dividends → Income from abroad → Investments → Tax paid → Wealth), with a results panel that updates live. On mobile the panel becomes a sticky bottom bar showing "Tax payable" that expands into the full breakdown.
 - **Results show**: gross income by head, exemptions, taxable income, tax by slab (each slab's range, rate, amount), gross tax, rebate (showing which of the three limits applied), minimum-tax check, surcharge, tax paid, **net payable/refundable**.
