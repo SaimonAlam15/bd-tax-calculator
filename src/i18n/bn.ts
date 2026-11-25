@@ -11,6 +11,8 @@ export const bn: Record<MessageKey, string> = {
   'app.privacyAds': 'সাইটে Google-এর বিজ্ঞাপন দেখানো হয়, যা কুকি ব্যবহার করে; তবে আপনার হিসাব বিজ্ঞাপন দেখতে পায় না।',
   'app.privacyPolicy': 'গোপনীয়তা নীতি',
   'ads.label': 'বিজ্ঞাপন',
+  'app.guideLink': 'অনলাইনে রিটার্ন দাখিলের নিয়ম',
+  'app.aboutLink': 'পরিচিতি',
   'app.reset': 'আমার তথ্য মুছুন',
   'app.resetConfirm': 'আপনার দেওয়া সব তথ্য মুছে ফেলবেন? এই ব্রাউজার থেকেও মুছে যাবে।',
 
@@ -172,6 +174,7 @@ export const bn: Record<MessageKey, string> = {
   'filing.title': 'অনলাইনে রিটার্ন জমা দিন',
   'filing.intro': 'এই ক্যালকুলেটর আপনার হয়ে রিটার্ন জমা দিতে পারে না। ওপরের অঙ্কগুলো দিয়ে এনবিআরের ই-রিটার্ন সাইটে কীভাবে রিটার্ন দেবেন, নিচের ধাপগুলোতে তা দেওয়া হলো।',
   'filing.checked': 'নির্দেশিকা সর্বশেষ যাচাই: {date}।',
+  'filing.fullGuide': 'ধাপে ধাপে পূর্ণ নির্দেশিকা পড়ুন।',
   'filing.copy': 'কপি',
   'filing.copied': 'কপি হয়েছে',
   'filing.copyLabel': '{label} কপি করুন',

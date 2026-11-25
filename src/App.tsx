@@ -14,8 +14,9 @@ import { LanguageSwitch } from './components/LanguageSwitch'
 import { FileOnlineLink, Headline, ResultsPanel } from './components/Results'
 import { calculate, currentRules as rules } from './engine'
 import { formatDate, t } from './i18n'
-import { useDisplaySettings } from './i18n/settings'
+import { getSettings, useDisplaySettings } from './i18n/settings'
 import { track } from './lib/analytics'
+import { pageHref } from './lib/pages'
 import { CACHE_HOURS } from './state/storage'
 import { useTaxInputs } from './state/useTaxInputs'
 
@@ -122,7 +123,13 @@ export function App() {
           ))}
         </p>
         <p>{t('results.disclaimer')}</p>
-        <p>
+        <p className="space-x-3">
+          <a href={pageHref('guides/file-tax-return-online/')} className="underline underline-offset-2">
+            {t('app.guideLink')}
+          </a>
+          <a href={pageHref('about/')} className="underline underline-offset-2">
+            {t('app.aboutLink')}
+          </a>
           <PrivacyLink />
         </p>
       </footer>
@@ -165,7 +172,10 @@ export function App() {
 
 function PrivacyLink() {
   return (
-    <a href={`${import.meta.env.BASE_URL}privacy.html`} className="underline underline-offset-2">
+    <a
+      href={`${import.meta.env.BASE_URL}privacy.html${getSettings().language === 'bn' ? '#bn' : ''}`}
+      className="underline underline-offset-2"
+    >
       {t('app.privacyPolicy')}
     </a>
   )

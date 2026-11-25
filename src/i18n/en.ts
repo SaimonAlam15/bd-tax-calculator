@@ -8,6 +8,8 @@ export const en = {
   'app.privacyAds': 'The site shows Google ads, which use cookies; they never see your figures.',
   'app.privacyPolicy': 'Privacy policy',
   'ads.label': 'Advertisement',
+  'app.guideLink': 'How to file online',
+  'app.aboutLink': 'About',
   'app.reset': 'Clear my data',
   'app.resetConfirm': 'Clear everything you have entered? It will also be deleted from this browser.',
 
@@ -169,6 +171,7 @@ export const en = {
   'filing.title': 'File your return online',
   'filing.intro': 'This calculator cannot file for you. These steps take you through NBR’s e-return site, using your figures from above.',
   'filing.checked': 'Guide last checked {date}.',
+  'filing.fullGuide': 'Read the full step-by-step guide.',
   'filing.copy': 'Copy',
   'filing.copied': 'Copied',
   'filing.copyLabel': 'Copy {label}',
