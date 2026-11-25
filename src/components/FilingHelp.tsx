@@ -12,6 +12,7 @@ import {
 } from '../filing/guide'
 import { formatDate, t, type MessageKey } from '../i18n'
 import { formatTaka, todayIso } from '../lib/format'
+import { pageHref } from '../lib/pages'
 import { loadTicks, saveTicks } from '../state/storage'
 import { Section } from './ui'
 
@@ -306,7 +307,10 @@ export function FilingHelp({ inputs, result, ticks, onTicksChange }: FilingHelpP
       <div className="space-y-1">
         <h2 className="text-lg font-bold">{t('filing.title')}</h2>
         <p className="text-sm text-stone-600 dark:text-stone-400">
-          {t('filing.intro')} {t('filing.checked', { date: formatDate(GUIDE_CHECKED) })}
+          {t('filing.intro')} {t('filing.checked', { date: formatDate(GUIDE_CHECKED) })}{' '}
+          <a href={pageHref('guides/file-tax-return-online/')} className="underline underline-offset-2">
+            {t('filing.fullGuide')}
+          </a>
         </p>
       </div>
 

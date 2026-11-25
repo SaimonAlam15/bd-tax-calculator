@@ -15,6 +15,16 @@ if (adsenseClient && !/^ca-pub-\d{10,20}$/.test(adsenseClient)) {
   throw new Error(`VITE_ADSENSE_CLIENT should look like ca-pub-1234567890123456, got "${adsenseClient}"`)
 }
 
+// Static pages built alongside the calculator: [address under the site root, source file].
+// The sitemap lists them, plus the calculator at / and bn/.
+const staticPages: [string, string][] = [
+  ['about/', 'about/index.html'],
+  ['bn/about/', 'bn/about/index.html'],
+  ['guides/file-tax-return-online/', 'guides/file-tax-return-online/index.html'],
+  ['bn/guides/file-tax-return-online/', 'bn/guides/file-tax-return-online/index.html'],
+  ['privacy.html', 'privacy.html'],
+]
+
 // The Bangla page at bn/ is the built index.html with these tags swapped, so search engines can index it.
 // Update the year with the rules each assessment year.
 const banglaPage: [RegExp, string][] = [
@@ -68,9 +78,9 @@ function siteMeta(): Plugin {
         fileName: 'sitemap.xml',
         source: `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>${siteUrl}</loc><lastmod>${today}</lastmod></url>
-  <url><loc>${siteUrl}bn/</loc><lastmod>${today}</lastmod></url>
-  <url><loc>${siteUrl}privacy.html</loc><lastmod>${today}</lastmod></url>
+${['', 'bn/', ...staticPages.map(([address]) => address)]
+  .map((address) => `  <url><loc>${siteUrl}${address}</loc><lastmod>${today}</lastmod></url>`)
+  .join('\n')}
 </urlset>
 `,
       })
@@ -99,7 +109,9 @@ export default defineConfig({
   build: {
     // ExcelJS (~930 kB) is its own chunk, loaded only when someone downloads.
     chunkSizeWarningLimit: 1000,
-    rolldownOptions: { input: { main: 'index.html', privacy: 'privacy.html' } },
+    rolldownOptions: {
+      input: { main: 'index.html', ...Object.fromEntries(staticPages.map(([, file]) => [file.replace(/\.html$/, ''), file])) },
+    },
   },
   test: {
     globals: true,
