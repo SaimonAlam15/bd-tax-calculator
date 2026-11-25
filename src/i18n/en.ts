@@ -8,6 +8,7 @@ export const en = {
   'app.privacyAds': 'The site shows Google ads, which use cookies; they never see your figures.',
   'app.privacyPolicy': 'Privacy policy',
   'ads.label': 'Advertisement',
+  'app.pagesNav': 'Guides and information',
   'app.guideLink': 'How to file online',
   'app.aboutLink': 'About',
   'app.reset': 'Clear my data',

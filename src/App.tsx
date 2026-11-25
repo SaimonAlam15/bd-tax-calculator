@@ -58,6 +58,17 @@ export function App() {
             <LanguageSwitch />
             <FileOnlineLink />
           </div>
+          <nav aria-label={t('app.pagesNav')} className="flex basis-full flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+            <a
+              href={pageHref('guides/file-tax-return-online/')}
+              className="text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400"
+            >
+              {t('app.guideLink')}
+            </a>
+            <a href={pageHref('about/')} className="text-emerald-700 underline-offset-2 hover:underline dark:text-emerald-400">
+              {t('app.aboutLink')}
+            </a>
+          </nav>
         </div>
       </header>
 

@@ -11,6 +11,7 @@ export const bn: Record<MessageKey, string> = {
   'app.privacyAds': 'সাইটে Google-এর বিজ্ঞাপন দেখানো হয়, যা কুকি ব্যবহার করে; তবে আপনার হিসাব বিজ্ঞাপন দেখতে পায় না।',
   'app.privacyPolicy': 'গোপনীয়তা নীতি',
   'ads.label': 'বিজ্ঞাপন',
+  'app.pagesNav': 'নির্দেশিকা ও তথ্য',
   'app.guideLink': 'অনলাইনে রিটার্ন দাখিলের নিয়ম',
   'app.aboutLink': 'পরিচিতি',
   'app.reset': 'আমার তথ্য মুছুন',
