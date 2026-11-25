@@ -22,6 +22,12 @@ const staticPages: [string, string][] = [
   ['bn/about/', 'bn/about/index.html'],
   ['guides/file-tax-return-online/', 'guides/file-tax-return-online/index.html'],
   ['bn/guides/file-tax-return-online/', 'bn/guides/file-tax-return-online/index.html'],
+  ['guides/', 'guides/index.html'],
+  ['bn/guides/', 'bn/guides/index.html'],
+  ['guides/income-tax-rates/', 'guides/income-tax-rates/index.html'],
+  ['bn/guides/income-tax-rates/', 'bn/guides/income-tax-rates/index.html'],
+  ['guides/investment-tax-rebate/', 'guides/investment-tax-rebate/index.html'],
+  ['bn/guides/investment-tax-rebate/', 'bn/guides/investment-tax-rebate/index.html'],
   ['privacy.html', 'privacy.html'],
 ]
 

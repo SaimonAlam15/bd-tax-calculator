@@ -152,3 +152,24 @@ th {
 .site-footer p {
   margin: 0.25rem 0;
 }
+
+.guide-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+.guide-list li {
+  border: 1px solid var(--rule);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+}
+.guide-list a {
+  font-weight: 600;
+}
+.guide-list p {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}

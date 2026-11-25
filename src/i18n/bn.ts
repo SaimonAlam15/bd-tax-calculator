@@ -12,7 +12,7 @@ export const bn: Record<MessageKey, string> = {
   'app.privacyPolicy': 'গোপনীয়তা নীতি',
   'ads.label': 'বিজ্ঞাপন',
   'app.pagesNav': 'নির্দেশিকা ও তথ্য',
-  'app.guideLink': 'অনলাইনে রিটার্ন দাখিলের নিয়ম',
+  'app.guidesLink': 'আয়কর নির্দেশিকা',
   'app.aboutLink': 'পরিচিতি',
   'app.reset': 'আমার তথ্য মুছুন',
   'app.resetConfirm': 'আপনার দেওয়া সব তথ্য মুছে ফেলবেন? এই ব্রাউজার থেকেও মুছে যাবে।',

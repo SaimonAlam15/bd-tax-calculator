@@ -9,7 +9,7 @@ export const en = {
   'app.privacyPolicy': 'Privacy policy',
   'ads.label': 'Advertisement',
   'app.pagesNav': 'Guides and information',
-  'app.guideLink': 'How to file online',
+  'app.guidesLink': 'Tax guides',
   'app.aboutLink': 'About',
   'app.reset': 'Clear my data',
   'app.resetConfirm': 'Clear everything you have entered? It will also be deleted from this browser.',
